@@ -33,7 +33,7 @@
                         <div class="check__block-text">Тысячи новых товаров каждый день</div>
                     </div>
                 </div>
-                <form id="app" class="auth__form" @submit.prevent="checkForm" action="something" method="post" novalidate="true">
+                <form id="auth" class="auth__form" @submit.prevent="checkForm" action="something" method="post" novalidate="true">
                     <div class="auth__input">
                         <input @input="checkEmail" class="auth__form-user" placeholder="Введите email"  type="email" name="email" id="email" v-model="email"></input>
                         <p v-if="errorsEmail.length">
@@ -103,6 +103,58 @@
 
 <script>
 export default {
-  name: 'v-auth'
+  name: 'v-auth',
+  data: {
+      errorsEmail: [],
+      errorsPass: [],
+      email: null,
+      password: null
+    },
+    methods: {
+      checkForm: function (e) {  
+        this.errorsEmail = [];
+        this.errorsPass = [];
+  
+        if (!this.email) {
+            this.errorsEmail.push('Введите email');
+          } else if (!this.validEmail(this.email)) {
+            this.errorsEmail.push('Введите валидный E-Mail');
+        }
+        if (!this.password) {
+          this.errorsPass.push('Введите пароль');
+        }
+      },
+      validEmail: function (email) {
+        var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(email);
+      },
+      checkEmail: function(e) {
+        this.errorsEmail = [];
+
+        if (!this.email) {
+            this.errorsEmail.push('Введите email');
+          } else if(!this.validEmail(this.email)) {
+            this.errorsEmail.push('Введите валидный E-Mail');
+        }
+
+      },
+      checkPassword: function(e) {
+        this.errorsPass = [];
+        if(this.password.trim().length == 0) {
+          this.errorsPass.push('Введите пароль');
+        } else if(this.password.trim().length < 6) {
+          this.errorsPass.push('Пароль должен содержать минимум 6 символов');
+        }
+
+
+        /*if(this.password.trim().length < 6 && this.password.trim().length != 0) {
+            this.errorsPass.push('Пароль должен содержать минимум 6 символов');
+        } else if(this.password.trim().length == 0) {
+            this.errorsPass.push('Введите пароль');
+        }*/
+
+      }
+    }
 }
+
 </script>
