@@ -1,160 +1,592 @@
 <template>
-<div class="v-auth">
-  <div class="auth">
-                <div class="auth__logo">
-                    <img src="assets/img/logo.svg"/>
-                </div>
-                <div class="auth__text">
-                    <span class="auth__text-pink">11 024 159</span> женщин со всей<br> России уже перестали переплачивать<br> за <span class="auth__text-pink">качественные товары</span> вместе с Mamsy
-                </div>
-                <div class="auth__check check hideCheckFirst">
-                    <div class="check__block">
-                        <div class="check__block-mark">
-                            <svg class="mark">
-                                <use xlink:href="#check"></use>
-                            </svg>
-                        </div>
-                        <div class="check__block-text">Скидки до 70% на товары для всей семьи</div>
-                    </div>
-                    <div class="check__block">
-                        <div class="check__block-mark">
-                            <svg class="mark">
-                                <use xlink:href="#check"></use>
-                            </svg>
-                        </div>
-                        <div class="check__block-text">Топ-бренды со всего мира</div>
-                    </div>
-                    <div class="check__block">
-                        <div class="check__block-mark">
-                            <svg class="mark">
-                                <use xlink:href="#check"></use>
-                            </svg>
-                        </div>
-                        <div class="check__block-text">Тысячи новых товаров каждый день</div>
-                    </div>
-                </div>
-                <form id="auth" class="auth__form" @submit.prevent="checkForm" action="something" method="post" novalidate="true">
-                    <div class="auth__input">
-                        <input @input="checkEmail" class="auth__form-user" placeholder="Введите email"  type="email" name="email" id="email" v-model="email"></input>
-                        <p v-if="errorsEmail.length">
-                            <span class="fail__comment">{{ errorsEmail[0] }}</span>
-                        </p>
-                    </div>
+  <div class="v-auth">
+    <div class="auth">
+      <div class="auth__logo">
+        <img src="../assets/img/logo.svg" />
+      </div>
+      <div class="auth__text">
+        <span class="auth__text-pink">11 024 159</span> женщин со всей<br />
+        России уже перестали переплачивать<br />
+        за <span class="auth__text-pink">качественные товары</span> вместе с
+        Mamsy
+      </div>
+      <div class="auth__check check hideCheckFirst">
+        <div class="check__block">
+          <div class="check__block-mark">
+            <svg class="mark">
+              <use xlink:href="#check"></use>
+            </svg>
+          </div>
+          <div class="check__block-text">
+            Скидки до 70% на товары для всей семьи
+          </div>
+        </div>
+        <div class="check__block">
+          <div class="check__block-mark">
+            <svg class="mark">
+              <use xlink:href="#check"></use>
+            </svg>
+          </div>
+          <div class="check__block-text">Топ-бренды со всего мира</div>
+        </div>
+        <div class="check__block">
+          <div class="check__block-mark">
+            <svg class="mark">
+              <use xlink:href="#check"></use>
+            </svg>
+          </div>
+          <div class="check__block-text">Тысячи новых товаров каждый день</div>
+        </div>
+      </div>
 
-                    <div class="auth__input">
-                        <input @input="checkPassword" class="auth__form-user" placeholder="Придумайте пароль" type="text" name="password" id="password" v-model="password"></input>
-                        <p v-if="errorsPass.length">
-                            <span class="fail__comment-password">{{ errorsPass[0] }}</span>
-                        </p>
-                    </div>
-                    <button type="submit" class="auth__form-btn">Войти</button>
-                </form>
-                <a href="#" class="auth__forget">Забыли пароль?</a>
-                <div class="auth__enter">
-                    Ещё не с нами? 
-                    <a href="#" class="auth__enter-register">Вступить в клуб</a>
-                </div>
-                <div class="auth__arrow">
-                    <img src="assets/img/arrow.png" />
-                </div>
-                <div class="auth__logo hideCheck">
-                    <img class="auth__logo-icon" src="assets/img/vk.svg" alt="">
-                    <img class="auth__logo-icon" src="assets/img/ok.svg" alt="">
-                    <img class="auth__logo-icon" src="assets/img/face.svg" alt="">
-                    <img class="auth__logo-icon" src="assets/img/google.svg" alt="">
-                </div>
-                <div class="auth__check check hideCheck">
-                    <div class="check__block">
-                        <div class="check__block-mark">
-                            <svg class="mark">
-                                <use xlink:href="#check"></use>
-                            </svg>
-                        </div>
-                        <div class="check__block-text">Скидки до 70% на товары для всей семьи</div>
-                    </div>
-                    <div class="check__block">
-                        <div class="check__block-mark">
-                            <svg class="mark">
-                                <use xlink:href="#check"></use>
-                            </svg>
-                        </div>
-                        <div class="check__block-text">Топ-бренды со всего мира</div>
-                    </div>
-                    <div class="check__block">
-                        <div class="check__block-mark">
-                            <svg class="mark">
-                                <use xlink:href="#check"></use>
-                            </svg>
-                        </div>
-                        <div class="check__block-text">Тысячи новых товаров каждый день</div>
-                    </div>
-                </div>
-                <div class="auth__app hideCheck">
-                    <div class="auth__app-title">Мобильное приложение</div>
-                    <div class="auth__app-apps">
-                        <img class="auth__app-store hideCheck" src="assets/img/appStore.png" alt="">
-                        <img class="auth__app-store hideCheck" src="assets/img/googlePlay.png" alt="">
-                    </div>
-                    <a href="" class="auth__app-description hideCheck">О клубе Mamsy</a>
-                </div>
-            </div>
-            </div>
+      <vAuthForm v-bind:showReg="showReg" v-bind:showAuth="showAuth"/>
+
+      <div class="auth__policy" v-if="showReg">
+            Нажимая на кнопку, я соглашаюсь с
+           <a href="#" class="auth__policy-doc">условиями</a>
+      </div>
+      <div v-bind:class="showReg ? 'auth__enterReg' : 'auth__enter'" v-if="showReg">
+            Зарегистрированы?
+            <a href="#" class="auth__enter-register">Вход здесь</a>
+      </div>
+
+      <a href="#" class="auth__forget" v-if="showAuth">Забыли пароль?</a>
+      <div class="auth__enter" v-if="showAuth">
+        Ещё не с нами?
+        <a href="#" class="auth__enter-register">Вступить в клуб</a>
+      </div>
+      <div v-bind:class="showReg ? 'auth__arrowReg' : 'auth__arrow'" >
+        <img src="../assets/img/arrow.png" />
+      </div>
+      <div class="auth__icons">
+        <img class="auth__icons-icon" src="../assets/img/vk.svg" alt="" />
+        <img class="auth__icons-icon" src="../assets/img/ok.svg" alt="" />
+        <img class="auth__icons-icon" src="../assets/img/face.svg" alt="" />
+        <img class="auth__icons-icon" src="../assets/img/google.svg" alt="" />
+      </div>
+      <div v-bind:class="showReg ? 'auth__quickEnterReg' : 'auth__quickEnter'" class="auth__quickEnter">Быстрый вход</div>
+      <div v-bind:class="showReg ? 'auth__iconsDeskReg' : 'auth__iconsDesk'">
+        <img v-bind:class="showReg ? 'auth__iconsDeskReg-icon' : 'auth__iconsDesk-icon'" src="../assets/img/vk.svg" alt="" />
+        <img v-bind:class="showReg ? 'auth__iconsDeskReg-icon' : 'auth__iconsDesk-icon'" src="../assets/img/ok.svg" alt="" />
+        <img v-bind:class="showReg ? 'auth__iconsDeskReg-icon' : 'auth__iconsDesk-icon'" src="../assets/img/face.svg" alt="" />
+        <img v-bind:class="showReg ? 'auth__iconsDeskReg-icon' : 'auth__iconsDesk-icon'" src="../assets/img/google.svg" alt="" />
+      </div>
+      <div class="auth__check check hideCheck">
+        <div class="check__block">
+          <div class="check__block-mark">
+            <svg class="mark">
+              <use xlink:href="#check"></use>
+            </svg>
+          </div>
+          <div class="check__block-text">
+            Скидки до 70% на товары для всей семьи
+          </div>
+        </div>
+        <div class="check__block">
+          <div class="check__block-mark">
+            <svg class="mark">
+              <use xlink:href="#check"></use>
+            </svg>
+          </div>
+          <div class="check__block-text">Топ-бренды со всего мира</div>
+        </div>
+        <div class="check__block">
+          <div class="check__block-mark">
+            <svg class="mark">
+              <use xlink:href="#check"></use>
+            </svg>
+          </div>
+          <div class="check__block-text">Тысячи новых товаров каждый день</div>
+        </div>
+      </div>
+      <div class="auth__app">
+        <div class="auth__app-title hideCheck">Мобильное приложение</div>
+        <div class="auth__app-apps">
+          <img
+            class="auth__app-store hideCheck"
+            src="../assets/img/appStore.png"
+            alt=""
+          />
+          <img
+            class="auth__app-store hideCheck"
+            src="../assets/img/googlePlay.png"
+            alt=""
+          />
+        </div>
+        <a href="" class="auth__app-description hideCheck">О клубе Mamsy</a>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
+import vAuthForm from "./v-auth-form.vue";
 export default {
-  name: 'v-auth',
-  data: {
+  name: "v-auth",
+  props: ["showReg", "showAuth"],
+  components: {
+    vAuthForm,
+  },
+  data() {
+    return {
       errorsEmail: [],
       errorsPass: [],
       email: null,
-      password: null
-    },
-    methods: {
-      checkForm: function (e) {  
-        this.errorsEmail = [];
-        this.errorsPass = [];
-  
-        if (!this.email) {
-            this.errorsEmail.push('Введите email');
-          } else if (!this.validEmail(this.email)) {
-            this.errorsEmail.push('Введите валидный E-Mail');
-        }
-        if (!this.password) {
-          this.errorsPass.push('Введите пароль');
-        }
-      },
-      validEmail: function (email) {
-        var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        return re.test(email);
-      },
-      checkEmail: function(e) {
-        this.errorsEmail = [];
+      password: null,
+    };
+  },
+  methods: {
+    checkForm: function (e) {
+      this.errorsEmail = [];
+      this.errorsPass = [];
 
-        if (!this.email) {
-            this.errorsEmail.push('Введите email');
-          } else if(!this.validEmail(this.email)) {
-            this.errorsEmail.push('Введите валидный E-Mail');
-        }
-
-      },
-      checkPassword: function(e) {
-        this.errorsPass = [];
-        if(this.password.trim().length == 0) {
-          this.errorsPass.push('Введите пароль');
-        } else if(this.password.trim().length < 6) {
-          this.errorsPass.push('Пароль должен содержать минимум 6 символов');
-        }
-
-
-        /*if(this.password.trim().length < 6 && this.password.trim().length != 0) {
-            this.errorsPass.push('Пароль должен содержать минимум 6 символов');
-        } else if(this.password.trim().length == 0) {
-            this.errorsPass.push('Введите пароль');
-        }*/
-
+      if (!this.email) {
+        this.errorsEmail.push("Введите email");
+      } else if (!this.validEmail(this.email)) {
+        this.errorsEmail.push("Введите валидный E-Mail");
       }
-    }
+      if (!this.password) {
+        this.errorsPass.push("Введите пароль");
+      }
+    },
+    validEmail: function (email) {
+      var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      return re.test(email);
+    },
+    checkEmail: function (e) {
+      this.errorsEmail = [];
+
+      if (!this.email) {
+        this.errorsEmail.push("Введите email");
+      } else if (!this.validEmail(this.email)) {
+        this.errorsEmail.push("Введите валидный E-Mail");
+      }
+    },
+    checkPassword: function (e) {
+      this.errorsPass = [];
+      if (this.password.trim().length == 0) {
+        this.errorsPass.push("Введите пароль");
+      } else if (this.password.trim().length < 6) {
+        this.errorsPass.push("Пароль должен содержать минимум 6 символов");
+      }
+      /*if(this.password.trim().length < 6 && this.password.trim().length != 0) {
+          this.errorsPass.push('Пароль должен содержать минимум 6 символов');
+      } else if(this.password.trim().length == 0) {
+          this.errorsPass.push('Введите пароль');
+      }*/
+    },
+  },
+};
+</script>
+
+<style lang="scss">
+.v-auth {
+    background-color: white;
 }
 
-</script>
+.auth {
+  position: relative;
+  width: 375px;
+  text-align: center;
+  background-color: white;
+
+  &__quickEnter {
+    position: absolute;
+    bottom: -10.5%;
+    left: 13%;
+    color: white;
+    font-size: 11px;
+  }
+
+  &__quickEnterReg {
+    position: absolute;
+    bottom: -14%;
+    left: 13%;
+    color: white;
+    font-size: 11px;
+  }
+
+  &__close {
+    position: absolute;
+    top: 5%;
+    right: 25%;
+    border: none;
+    outline: none;
+    background: none;
+    z-index: 1;
+
+    &-icon {
+      width: 13px;
+      height: 13px;
+    }
+  }
+
+  &__logo {
+    margin: 15px 0;
+  }
+
+  &__text {
+    margin: 0 30px;
+    font-size: 14px;
+    line-height: 20px;
+    color: #666;
+
+    &-pink {
+      color: #e71e6c;
+    }
+  }
+
+  &__input {
+    padding: 0px 73px 0 40px;
+    margin-bottom: 10px;
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    margin: 3px 0;
+
+    &-user {
+      padding: 13px 15px;
+      width: 100%;
+      border-radius: 3px;
+      border: 1px solid rgb(230, 227, 227);
+      outline: none;
+
+      &::placeholder {
+        font-size: 13px;
+        font-weight: 300;
+        color: rgb(187, 186, 186);
+      }
+    }
+
+    &-btn {
+      margin: 12px 40px 0 40px;
+      height: 45px;
+      background-color: #e71e6c;
+      border: none;
+      border-radius: 3px;
+      color: #fff;
+      font-size: 20px;
+
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+
+  &__forget {
+    color: #666;
+  }
+
+  &__enterReg {
+    margin-top: 40px;
+    font-style: italic;
+
+    &-register {
+      color: #e71e6c;
+    }
+  }
+
+  &__enter {
+    margin-top: 105px;
+    font-style: italic;
+
+    &-register {
+      color: #e71e6c;
+    }
+  }
+
+  &__arrowReg {
+    position: absolute;
+    bottom: -7%;
+    left: -12%;
+  }
+
+  &__arrow {
+    position: absolute;
+    bottom: -3%;
+    left: -12%;
+  }
+
+  &__policy {
+    font-size: 12px;
+    font-weight: 300;
+    color: rgb(187, 186, 186);
+
+    &-doc {
+      color: rgb(187, 186, 186);
+    }
+  }
+
+  &__icons {
+    &-icon {
+      display: none;
+    }
+  }
+
+  &__iconsDeskReg {
+    position: absolute;
+    display: flex;
+    bottom: -17%;
+    left: 50%;
+    transform: translateX(-50%);
+
+    &:last-child {
+      margin-right: 0;
+    }
+    &-icon {
+        display: inline;
+        margin: 8px 8px 8px 0;
+        height: 25px;
+        width: 25px;
+
+        &:last-child {
+          margin-right: 0;
+        }
+    }
+  }
+
+  &__iconsDesk {
+    position: absolute;
+    display: flex;
+    bottom: -13.5%;
+    left: 50%;
+    transform: translateX(-50%);
+
+    &:last-child {
+      margin-right: 0;
+    }
+    &-icon {
+        display: inline;
+        margin: 8px 8px 8px 0;
+        height: 25px;
+        width: 25px;
+
+        &:last-child {
+          margin-right: 0;
+        }
+    }
+  }
+}
+
+.mark {
+  width: 18px;
+  height: 18px;
+  fill: #fdc3d9;
+}
+
+.check {
+  margin-top: 20px;
+
+  &__block {
+    position: relative;
+    display: flex;
+    margin-bottom: 12px;
+
+    &-mark {
+      position: absolute;
+      top: 0;
+      left: 0;
+      margin-left: 40px;
+      width: 18px;
+      height: 18px;
+    }
+
+    &-text {
+      margin-left: 65px;
+      font-size: 14px;
+      font-style: italic;
+      color: #666;
+    }
+  }
+}
+
+.fail {
+  position: relative;
+  border-color: red;
+  margin-bottom: 10px;
+
+  &__comm {
+    margin: 0;
+    width: 110%;
+    padding: 5px 0;
+  }
+
+  &__comment {
+    position: absolute;
+    bottom: 47.5%;
+    right: 11.5%;
+    font-size: 11px;
+    font-weight: 300;
+    color: red;
+
+    &-password {
+      position: absolute;
+      bottom: 36%;
+      right: 11.5%;
+      font-size: 11px;
+      font-weight: 300;
+      color: red;
+
+      .auth__input {
+        margin-bottom: 13px;
+      }
+    }
+  }
+}
+
+.hide {
+  display: none;
+}
+
+.hideCheck {
+  display: none;
+}
+
+@media (max-width: 755px) {
+  .form__container {
+    display: none;
+  }
+
+  .hideCheck {
+    display: block;
+  }
+
+  .hideCheckFirst {
+    display: none;
+  }
+
+  .check {
+    position: relative;
+    margin-top: 20px;
+
+    &__block {
+      &-text {
+        margin-left: 45px;
+      }
+
+      &-mark {
+        margin-left: 20px;
+      }
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: -35px;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background-color: #eeeff5;
+    }
+  }
+
+  .fail__comment {
+    top: 23%;
+    right: 10%;
+
+    &-password {
+      top: 29%;
+      right: 10%;
+    }
+  }
+
+  .auth {
+    max-width: 340px;
+    width: 100%;
+
+    &__close {
+      right: 52%;
+      top: 7%;
+    }
+
+    &__arrowReg {
+      display: none;
+    }
+
+    &__arrow {
+      display: none;
+    }
+
+    &__logo {
+      margin: 20px 0 0;
+    }
+
+    &__input {
+      padding: 0 32px;
+      margin-bottom: 7px;
+    }
+
+    &__form {
+      &-btn {
+        margin: 0 32px 28px;
+      }
+
+      &-user {
+        padding: 13px 0 13px 10px;
+        width: 96%;
+      }
+    }
+
+    &__enter {
+      margin-top: 28px;
+    }
+
+    &__quickEnter {
+      display: none;
+    }
+
+    &__iconsDesk {
+      display: none;
+    }
+
+    &__icons {
+      &-icon {
+        position: relative;
+        display: inline;
+        margin: 15px 15px 15px 0;
+        height: 40px;
+        width: 40px;
+
+        &:last-child {
+          margin-right: 0;
+        }
+      }
+    }
+
+    &__app {
+      &-title {
+        font-style: italic;
+        color: gray;
+        font-size: 16px;
+        margin-top: 70px;
+      }
+
+      &-store {
+        width: 130px;
+        height: auto;
+      }
+
+      &-apps {
+        margin: 20px 0;
+        display: flex;
+        justify-content: center;
+      }
+
+      &-store {
+        &:first-child {
+          margin-right: 3px;
+        }
+      }
+
+      &-description {
+        font-size: 16px;
+        color: gray;
+        margin-bottom: 20px;
+      }
+    }
+  }
+}
+</style>

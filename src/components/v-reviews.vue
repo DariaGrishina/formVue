@@ -1,194 +1,182 @@
 <template>
-<div class="v-reviews">
-<div class="form__container">
-                <div class="form__reviews">
+  <div class="v-reviews">
+    <div class="form__container">
+      <div v-bind:class="showReg ? 'form__reviewsReg' : 'form__reviews'" >
+        <div v-bind:class="showReg ? 'reviews__commaReg' : 'reviews__comma'">
+          <img src="../assets/img/quotes.png" />
+        </div>
 
-                    <button class="reviews__arr" id="reviews__arrow--left">
-                        <svg class="reviews__arr-img">
-                            <use xlink:href="#arr"></use>
-                        </svg>
-                    </button>
+        <vReviewsSlider v-bind:showReg="showReg" />
 
-                    <div class="reviews__comma">
-                        <img src="assets/img/quotes.png" />
-                    </div>
+        <div class="reviews__scores" v-if="showReg">
+          <img src="../assets/img/250.png" />
+        </div>
 
-                    <div class="reviews" id="reviews">
-                        
-                        <div class="reviews__item">
-                            
-                            <div class="reviews__text">Мамси, спасибо Вам огромное за такие красивые платья!
-                                Сегодня получила новенькое платьице. Боже мой как оно мне понравилось...
-                                какое красивое.. и ведь платье совсем не дорогое! Спасибо</div>
-                            <div class="reviews__person">
-                                <img class="reviews__person-photo" src="assets/img/person.png" />
-                                <div class="reviews__person-info">
-                                    <div class="reviews__person-name">Алла г. Москва</div>
-                                    <div class="reviews__person-date">с нами 4 года, 3 месяца, 65 заказов</div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="reviews__item splite__slide">
-                            <div class="reviews__text">Все что я заказывала на сайте все просто супер!
-                                Вещи отличные. Заказала сыну куртку steen age очень довольна, она офигенная,
-                                с кучей карманов, даже с термометром)))) и скидка была 70%.</div>
-                            <div class="reviews__person">
-                                <img class="reviews__person-photo" src="assets/img/person2.png" />
-                                <div class="reviews__person-info">
-                                    <div class="reviews__person-name">Мария г. Барнаул</div>
-                                    <div class="reviews__person-date">с нами 2 года, 4 месяца, 32 заказа</div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="reviews__item splite__slide">
-                            <div class="reviews__text">Добрый день, Мамси! Спасибо за заказ номер 1703226!
-                                Уютное постельное белье дарит нам прекрасные сны! А валеночки для лапочки-дочки
-                                просто чудо! Теплые, мягкие! СПАСИБО, МАМСИ, ЧТО ТЫ ЕСТЬ!</div>
-                            <div class="reviews__person">
-                                <img class="reviews__person-photo" src="assets/img/person3.png" />
-                                <div class="reviews__person-info">
-                                    <div class="reviews__person-name">Елена г. Санкт-Петербург</div>
-                                    <div class="reviews__person-date">с нами 5 лет, 1 месяц, 535 заказов</div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="reviews__item splite__slide">
-                            <div class="reviews__text">Здравствуйте, Mamsy! Вчера получила первый заказ! Дочке зимний
-                                комплект, себе платье! Мне очень понравилось! Качество супер! Размер в точку! И цена
-                                радует! Буду заказывать ещё! Спасибо!</div>
-                            <div class="reviews__person">
-                                <img class="reviews__person-photo" src="assets/img/person4.png" />
-                                <div class="reviews__person-info">
-                                    <div class="reviews__person-name">Ольга г. Новосибирск</div>
-                                    <div class="reviews__person-date">с нами 1 месяц, 1 заказ</div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="reviews__item splite__slide">
-                            <div class="reviews__text">Только что получила свой большой заказ. Накопила
-                                баллов и потратила на 50% скидку. Коробка еле прошла в дверь. Вещи
-                                подошли отлично. Мамси, огромное спасибо! Не знаю, что бы я без Вас делала.</div>
-                            <div class="reviews__person">
-                                <img class="reviews__person-photo" src="assets/img/person5.png" />
-                                <div class="reviews__person-info">
-                                    <div class="reviews__person-name">Ольга г. Казань</div>
-                                    <div class="reviews__person-date">с нами 4 года, 3 месяца, 455 заказов</div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                    </div>
-
-                    <button class="reviews__arr" id="reviews__arrow--right">
-                        <svg class="reviews__arr-img">
-                            <use xlink:href="#arr"></use>
-                        </svg>
-                    </button>
-                </div>
-            </div>
-            </div>
+        <a href="#" class="reviews__detail">Подробнее о клубе мамси</a>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
+import vReviewsSlider from "./v-reviews-slider.vue";
 export default {
-  name: 'v-reviews'
-}
+  name: "v-reviews",
+  props: ["showReg"],
+  components: {
+    vReviewsSlider,
+  },
+
+  methods: {
+    greet: function(e) {
+      alert(e)
+    }
+  }
+};
 </script>
 
-<style>
+<style lang="scss">
 .form {
+  &__reviewsReg {
+    width: 100%;
+    position: relative;
 
-    &__reviews {
-        width: 100%;
-        position: relative;
-        
-        background-repeat: no-repeat;
-        height: 583px;
+    background-image: url("../assets/img/backReg.jpg");
+    background-repeat: no-repeat;
+    height: 583px;
 
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__reviews {
+    width: 100%;
+    position: relative;
+
+    background-image: url("../assets/img/back.jpg");
+    background-repeat: no-repeat;
+    height: 583px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+.reviewsReg {
+  position: relative;
+  width: 380px;
+  margin: 0 auto -130px;
 }
 
 .reviews {
+  position: relative;
+  width: 380px;
+  margin: 0 auto -280px;
+
+  &__detail {
+    position: absolute;
+    bottom: -4%;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    font-size: 11px;
+
+    &:hover {
+      color: #e71e6c;
+    }
+  }
+
+  &__item {
+    width: 84%;
+    padding: 30px;
+    background-color: #ffffff;
+  }
+
+  &__scores {
+    position: absolute;
+    bottom: 2%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  &__comma {
+    position: absolute;
+    top: 51%;
+    left: 4%;
+    z-index: 10;
+  }
+
+  &__commaReg {
+    position: absolute;
+    top: 38%;
+    left: 4%;
+    z-index: 10;
+  }
+
+  &__text {
+    color: #666;
+    font-size: 14px;
+    font-style: italic;
+    line-height: 1.5;
+    margin-bottom: 20px;
+  }
+
+  &__person {
     position: relative;
-    width: 380px;
-    margin: 0 auto -280px;
+    display: flex;
 
-    &__item {
-        width: inherit;
-        padding: 30px;
-        background-color: #ffffff;
+    &-photo {
+      width: 53px;
+      height: 53px;
     }
 
-    &__comma {
-        position: absolute;
-        top: 51%;
-        left: 4%;
-        z-index: 10;
+    &-info {
+      position: absolute;
+      top: 0;
+      left: 0;
+      transform: translateY(50%) translateX(35%);
     }
 
-    &__text {
-        color: #666;
-        font-size: 14px;
-        font-style: italic;
-        line-height: 1.5;
-        margin-bottom: 20px;
+    &-name {
+      font-size: 14px;
     }
 
-    &__person {
-        position: relative;
-        display: flex;
+    &-date {
+      font-size: 12px;
+      color: #666;
+    }
+  }
 
-        &-photo {
-            width: 53px;
-            height: 53px;
-        }
+  &__arr {
+    position: absolute;
+    bottom: 25%;
+    left: 8%;
+    transform: rotate(180deg);
+    border: none;
+    background: none;
+    z-index: 10;
+    width: 18px;
+    height: 18px;
+    outline: none;
 
-        &-info {
-            position: absolute;
-            top: 0;
-            left: 0;
-            transform: translateY(50%) translateX(35%);
-        }
-
-        &-name {
-            font-size: 14px;
-        }
-
-        &-date {
-            font-size: 12px;
-            color: #666;
-        }
+    &:last-child {
+      left: 88%;
+      transform: rotate(0);
     }
 
-    &__arr {
-        position: absolute;
-        bottom: 25%;
-        left: 8%;
-        transform: rotate(180deg);
-        border: none;
-        background: none;
-        z-index: 10;
-        width: 18px;
-        height: 18px;
-        outline: none;
-
-        &:last-child {
-            left: 88%;
-            transform: rotate(0);
-        }
-
-        &-img {
-            width: 18px;
-            height: 18px;
-            fill: #e71e6c;
-        }
+    &-img {
+      width: 18px;
+      height: 18px;
+      fill: #e71e6c;
     }
+  }
+}
+
+@media (max-width: 755px) {
+  .v-reviews {
+    display: none;
+  }
 }
 </style>
