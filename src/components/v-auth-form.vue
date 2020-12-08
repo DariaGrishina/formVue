@@ -34,37 +34,18 @@
           v-model="password"
         />
         <p class="fail__comm" v-if="errorsPass.length">
-          <span class="fail__comment-password">{{ errorsPass[0] }}</span>
+          <span class="fail__comment">{{ errorsPass[0] }}</span>
         </p>
       </div>
       <div class="auth__input" v-if="showReg" >
-            <input class="auth__form-user" placeholder="Введите Ваше имя">
+          <input class="auth__form-user" placeholder="Введите Ваше имя" v-model="name">
       </div>
-      <button type="submit" class="auth__form-btn" v-if="showAuth" >Войти</button>
-      <button type="submit" class="auth__form-btn" v-if="showReg" >Вступить в клуб</button>
+      <button v-bind:disabled="isDisabled" @click="getDataAuth" type="submit" class="auth__form-btn" v-if="showAuth" >Войти</button>
+      <button @click="getDataReg" type="submit" class="auth__form-btn" v-if="showReg" >Вступить в клуб</button>
     </form>
   </div>
 </template>
 
-<!--<form class="auth__form">
-                    <div class="auth__input">
-                        <input class="auth__form-user  fail" placeholder="Введите email"></input>
-                        <span class="fail__comment">Введите email</span>
-                    </div>
-
-                    <div class="auth__input">
-                        <input class="auth__form-user" placeholder="Придумайте пароль"></input>
-                        <span class="fail__comment  hide">Ваш пароль</span>
-                    </div>
-                    
-                    <div class="auth__input">
-                        <input class="auth__form-user" placeholder="Введите Ваше имя"></input>
-                        <span class="fail__comment  hide">Ваше имя</span>
-                    </div>
-                    
-                    <button class="auth__form-btn">Вступить в клуб</button>
-                </form>
--->
 <script>
 export default {
   name: "v-auth-form",
@@ -75,9 +56,42 @@ export default {
       errorsPass: [],
       email: null,
       password: null,
+      name: null,
+      isDisabled: true
     };
   },
   methods: {
+    getDataAuth: function(e) {
+      let user = {
+        userEmail: this.email,
+        userPass: this.password
+      }
+      if (!this.email || !this.password) {
+        console.log('ddd');
+        this.isDisabled = true; 
+      } else {
+        console.log('hhh');
+        this.isDisabled = false;
+      }
+      console.log(user)
+    },
+    getDataReg: function(e) {
+      let user = {
+        userEmail: this.email,
+        userPass: this.password,
+        userName: this.name
+      }
+      console.log(user)
+    },
+    /*disableButton: function(e) {
+      if (!this.email || !this.password) {
+        console.log('ddd');
+        this.isDisabled = true; 
+      } else {
+        console.log('hhh');
+        this.isDisabled = false;
+      }
+    },*/
     checkForm: function (e) {
       this.errorsEmail = [];
       this.errorsPass = [];
@@ -111,13 +125,117 @@ export default {
       } else if (this.password.trim().length < 6) {
         this.errorsPass.push("Пароль должен содержать минимум 6 символов");
       }
-
-      /*if(this.password.trim().length < 6 && this.password.trim().length != 0) {
-          this.errorsPass.push('Пароль должен содержать минимум 6 символов');
-      } else if(this.password.trim().length == 0) {
-          this.errorsPass.push('Введите пароль');
-      }*/
     },
   },
 };
 </script>
+
+<style lang="scss">
+  .fail {
+  position: relative;
+  border-color: red;
+  margin-bottom: 10px;
+
+  &__comm {
+    position: relative;
+    margin: 0;
+    width: 100%;
+    padding: 5px 0;
+  }
+
+  &__comment {
+    position: absolute;
+    bottom: -5px;
+    right: 0;
+    font-size: 11px;
+    font-weight: 300;
+    color: red;
+
+    &-password {
+      position: absolute;
+      bottom: 36%;
+      right: 11.5%;
+      font-size: 11px;
+      font-weight: 300;
+      color: red;
+
+      .auth__input {
+        margin-bottom: 13px;
+      }
+    }
+  }
+}
+
+  .auth {
+    &__form {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    margin: 3px 0;
+
+    &-user {
+      padding: 13px 121px 13px 15px;
+      border-radius: 3px;
+      border: 1px solid rgb(230, 227, 227);
+      outline: none;
+
+      &::placeholder {
+        font-size: 13px;
+        font-weight: 300;
+        color: rgb(187, 186, 186);
+      }
+    }
+
+    &-btn {
+      margin: 12px 40px 0 40px;
+      height: 45px;
+      background-color: #e71e6c;
+      border: none;
+      border-radius: 3px;
+      color: #fff;
+      font-size: 20px;
+      cursor: pointer;
+
+      &:focus {
+        outline: none;
+      }
+
+      &:hover {
+        background-color: #a5496c;
+      }
+    }
+  }
+
+  &__input {
+    padding: 0px 40px 0 40px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+  }
+
+  @media (max-width: 755px) {
+    .auth {
+      &__form {
+        &-btn {
+          margin: 0 32px 28px;
+        }
+
+        &-user {
+          padding: 13px 0 13px 10px;
+          width: 96%;
+        }
+      }
+
+      &__input {
+        padding: 0 32px;
+        margin-bottom: 7px;
+      }
+    }
+
+    .fail__comment {
+      top: 2px;
+      right: 0;
+      font-size: 10px;
+    }
+  }
+  }
+</style>

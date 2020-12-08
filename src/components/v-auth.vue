@@ -47,13 +47,13 @@
       </div>
       <div v-bind:class="showReg ? 'auth__enterReg' : 'auth__enter'" v-if="showReg">
             Зарегистрированы?
-            <a href="#" class="auth__enter-register">Вход здесь</a>
+            <a @click="showAuthReg" href="#" class="auth__enter-register">Вход здесь</a>
       </div>
 
       <a href="#" class="auth__forget" v-if="showAuth">Забыли пароль?</a>
       <div class="auth__enter" v-if="showAuth">
         Ещё не с нами?
-        <a href="#" class="auth__enter-register">Вступить в клуб</a>
+        <a @click="showFunc" href="#" class="auth__enter-register">Вступить в клуб</a>
       </div>
       <div v-bind:class="showReg ? 'auth__arrowReg' : 'auth__arrow'" >
         <img src="../assets/img/arrow.png" />
@@ -132,49 +132,18 @@ export default {
       errorsEmail: [],
       errorsPass: [],
       email: null,
-      password: null,
+      password: null
     };
   },
   methods: {
-    checkForm: function (e) {
-      this.errorsEmail = [];
-      this.errorsPass = [];
-
-      if (!this.email) {
-        this.errorsEmail.push("Введите email");
-      } else if (!this.validEmail(this.email)) {
-        this.errorsEmail.push("Введите валидный E-Mail");
-      }
-      if (!this.password) {
-        this.errorsPass.push("Введите пароль");
-      }
+    showFunc: function(e) {
+      this.showReg = true;
+      this.showAuth = false;
     },
-    validEmail: function (email) {
-      var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-      return re.test(email);
-    },
-    checkEmail: function (e) {
-      this.errorsEmail = [];
-
-      if (!this.email) {
-        this.errorsEmail.push("Введите email");
-      } else if (!this.validEmail(this.email)) {
-        this.errorsEmail.push("Введите валидный E-Mail");
-      }
-    },
-    checkPassword: function (e) {
-      this.errorsPass = [];
-      if (this.password.trim().length == 0) {
-        this.errorsPass.push("Введите пароль");
-      } else if (this.password.trim().length < 6) {
-        this.errorsPass.push("Пароль должен содержать минимум 6 символов");
-      }
-      /*if(this.password.trim().length < 6 && this.password.trim().length != 0) {
-          this.errorsPass.push('Пароль должен содержать минимум 6 символов');
-      } else if(this.password.trim().length == 0) {
-          this.errorsPass.push('Введите пароль');
-      }*/
-    },
+    showAuthReg: function(e) {
+      this.showReg = false;
+      this.showAuth = true;
+    }
   },
 };
 </script>
@@ -208,8 +177,8 @@ export default {
 
   &__close {
     position: absolute;
-    top: 5%;
-    right: 25%;
+    top: 10px;
+    right: 10px;
     border: none;
     outline: none;
     background: none;
@@ -236,20 +205,20 @@ export default {
     }
   }
 
-  &__input {
-    padding: 0px 73px 0 40px;
+  /*&__input {
+    padding: 0px 40px 0 40px;
     margin-bottom: 10px;
-  }
+    box-sizing: border-box;
+  }*/
 
-  &__form {
+  /*&__form {
     display: flex;
     flex-direction: column;
     text-align: center;
     margin: 3px 0;
 
     &-user {
-      padding: 13px 15px;
-      width: 100%;
+      padding: 13px 121px 13px 15px;
       border-radius: 3px;
       border: 1px solid rgb(230, 227, 227);
       outline: none;
@@ -269,12 +238,17 @@ export default {
       border-radius: 3px;
       color: #fff;
       font-size: 20px;
+      cursor: pointer;
 
       &:focus {
         outline: none;
       }
+
+      &:hover {
+        background-color: #a5496c;
+      }
     }
-  }
+  }*/
 
   &__forget {
     color: #666;
@@ -403,21 +377,22 @@ export default {
   }
 }
 
-.fail {
+/*.fail {
   position: relative;
   border-color: red;
   margin-bottom: 10px;
 
   &__comm {
+    position: relative;
     margin: 0;
-    width: 110%;
+    width: 100%;
     padding: 5px 0;
   }
 
   &__comment {
     position: absolute;
-    bottom: 47.5%;
-    right: 11.5%;
+    bottom: -2px;
+    right: 0;
     font-size: 11px;
     font-weight: 300;
     color: red;
@@ -435,7 +410,7 @@ export default {
       }
     }
   }
-}
+}*/
 
 .hide {
   display: none;
@@ -465,6 +440,7 @@ export default {
     &__block {
       &-text {
         margin-left: 45px;
+        font-size: 12.5px;
       }
 
       &-mark {
@@ -483,23 +459,22 @@ export default {
     }
   }
 
-  .fail__comment {
-    top: 23%;
-    right: 10%;
-
-    &-password {
-      top: 29%;
-      right: 10%;
-    }
-  }
+  /*.fail__comment {
+    top: 2px;
+    right: 0;
+  }*/
 
   .auth {
     max-width: 340px;
     width: 100%;
 
+    &__text {
+      font-size: 12px;
+    }
+
     &__close {
-      right: 52%;
-      top: 7%;
+      right: 20px;
+      top: 20px;
     }
 
     &__arrowReg {
@@ -514,12 +489,12 @@ export default {
       margin: 20px 0 0;
     }
 
-    &__input {
+    /*&__input {
       padding: 0 32px;
       margin-bottom: 7px;
-    }
+    }*/
 
-    &__form {
+    /*&__form {
       &-btn {
         margin: 0 32px 28px;
       }
@@ -528,7 +503,7 @@ export default {
         padding: 13px 0 13px 10px;
         width: 96%;
       }
-    }
+    }*/
 
     &__enter {
       margin-top: 28px;

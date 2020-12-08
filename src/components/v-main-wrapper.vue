@@ -33,7 +33,7 @@
         </g>
       </symbol>
     </svg>
-    <button v-on:click="closeAuth">Вход</button>
+    <button @click="closeAuth">Вход</button>
     <button @click="closeReg">Регистрация</button>
     <div class="form" v-if="showAuth">
       <div class="container">
@@ -97,10 +97,12 @@ body {
 }
 
 .container {
+  position: relative;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   margin: auto;
-  width: 785px;
+  max-width: 785px;
+  width: 100%;
 }
 
 .form__container {
