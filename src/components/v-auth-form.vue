@@ -55,7 +55,7 @@ export default {
       errorsEmail: [],
       errorsPass: [],
       email: null,
-      password: null,
+      password: '',
       name: null,
       isDisabled: true
     };
@@ -66,7 +66,10 @@ export default {
         userEmail: this.email,
         userPass: this.password
       }
-      console.log(user)
+      if(user.userEmail && user.userPass) {
+        console.log(user)
+      }
+      
     },
     getDataReg: function(e) {
       let user = {
@@ -74,7 +77,10 @@ export default {
         userPass: this.password,
         userName: this.name
       }
-      console.log(user)
+
+      if(user.userEmail && user.userPass && user.userName) {
+        console.log(user)
+      }
     },
     /*disableButton: function(e) {
       if (!this.email || !this.password) {
@@ -89,14 +95,8 @@ export default {
       this.errorsEmail = [];
       this.errorsPass = [];
 
-      if (!this.email) {
-        this.errorsEmail.push("Введите email");
-      } else if (!this.validEmail(this.email)) {
-        this.errorsEmail.push("Введите валидный E-Mail");
-      }
-      if (!this.password) {
-        this.errorsPass.push("Введите пароль");
-      }
+      this.checkPassword();
+      this.checkEmail();
     },
     validEmail: function (email) {
       var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
