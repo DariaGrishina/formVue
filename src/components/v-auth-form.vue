@@ -211,7 +211,7 @@ export default {
     .auth {
       &__form {
         &-btn {
-          margin: 0 25px 28px;
+          margin: 0 25px;
         }
 
         &-user {

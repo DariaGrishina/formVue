@@ -47,13 +47,13 @@
       </div>
       <div v-bind:class="showReg ? 'auth__enterReg' : 'auth__enter'" v-if="showReg">
             Зарегистрированы?
-            <a @click="showFuncAuth" href="#" class="auth__enter-register">Вход здесь</a>
+            <a @click="showFunc" href="#" class="auth__enter-register">Вход здесь</a>
       </div>
 
       <a href="#" class="auth__forget" v-if="showAuth">Забыли пароль?</a>
       <div class="auth__enter" v-if="showAuth">
         Ещё не с нами?
-        <a @click="showFuncReg" href="#" class="auth__enter-register">Вступить в клуб</a>
+        <a @click="showFunc" href="#" class="auth__enter-register">Вступить в клуб</a>
       </div>
       <div v-bind:class="showReg ? 'auth__arrowReg' : 'auth__arrow'" >
         <img src="../assets/img/arrow.png" />
@@ -139,15 +139,8 @@ export default {
     };
   },
   methods: {
-    showFuncReg: function(e) {
-      this.$emit('changeFormReg');
-      //this.showReg = true;
-      //this.showAuth = false;
-    },
-    showFuncAuth: function(e) {
-      this.$emit('changeFormAuth');
-      //this.showReg = false;
-      //this.showAuth = true;
+    showFunc: function(e) {
+      this.$emit('changeForm');
     }
   },
 };
@@ -496,6 +489,18 @@ export default {
       margin: 20px 0 0;
     }
 
+    &__forget {
+      display: block;
+      margin-top: 30px;
+    }
+
+    &__enterReg {
+      position: relative;
+      margin-top: 60px;
+      text-align: left;
+      width: 243px;
+    }
+
     /*&__input {
       padding: 0 32px;
       margin-bottom: 7px;
@@ -513,7 +518,10 @@ export default {
     }*/
 
     &__enter {
-      margin-top: 28px;
+      position: relative;
+      margin-top: 63px;
+      text-align: left;
+      width: 266px;
     }
 
     &__quickEnter {

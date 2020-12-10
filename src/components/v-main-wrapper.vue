@@ -41,7 +41,7 @@
           <img class="auth__close-icon" src="../assets/img/close.svg" alt="" />
         </button>
         <vReviews />
-        <vAuth v-bind:showAuth="showAuth" />
+        <vAuth v-on:changeForm="closeReg" v-bind:showAuth="showAuth" />
       </div>
     </div>
     <div class="formReg" v-if="showReg">
@@ -51,8 +51,8 @@
             <img class="auth__close-icon" src="../assets/img/close.svg" alt="" />
           </button>
 
-          <vReviews v-on:greet="greet" v-bind:showReg="showReg"/>
-          <vAuth v-on:changeFormReg="closeReg" v-bind:showReg="showReg" />
+          <vReviews v-bind:showReg="showReg"/>
+          <vAuth v-on:changeForm="closeAuth" v-bind:showReg="showReg" />
         </div>
     </div>
   </div>
@@ -86,10 +86,6 @@ export default {
     closeReg: function () {
       this.showAuth = false;
       this.showReg = true;
-    },
-
-    greet: function() {
-      alert('ergr');
     }
   },
 };

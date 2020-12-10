@@ -57,6 +57,7 @@ export default {
 
   @media (max-width: 755px) {
     position: static;
+    margin-top: -22px;
   }
 }
 
@@ -71,6 +72,8 @@ export default {
 
   @media (max-width: 755px) {
     position: static;
+    margin-top: -22px;
+    text-align: left;
   }
 }
 
