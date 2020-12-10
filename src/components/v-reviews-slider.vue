@@ -1,5 +1,5 @@
 <template>
-  <div v-bind:class="showReg ? 'reviewsReg' : 'reviews'" id="reviews">
+  <div v-bind:class="isShowReg ? 'reviewsReg' : 'reviews'" id="reviews">
     <splide :options="options" @splide:moved="moved">
       <splide-slide v-for="(slide, id) in slides" :key="id">
         <div class="reviews__item">
@@ -23,7 +23,7 @@ import "@splidejs/splide/dist/css/themes/splide-default.min.css";
 
 export default {
   name: "v-reviews-slider",
-  props: ["showReg"],
+  props: ["isShowReg"],
   data() {
     return {
       options: {

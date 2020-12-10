@@ -1,14 +1,14 @@
 <template>
   <div class="v-reviews" v-on:click="greet">
     <div class="form__container">
-      <div v-bind:class="showReg ? 'form__reviewsReg' : 'form__reviews'" >
-        <div v-bind:class="showReg ? 'reviews__commaReg' : 'reviews__comma'">
+      <div v-bind:class="isShowReg ? 'form__reviewsReg' : 'form__reviews'" >
+        <div v-bind:class="isShowReg ? 'reviews__commaReg' : 'reviews__comma'">
           <img src="../assets/img/quotes.png" />
         </div>
 
-        <vReviewsSlider v-bind:showReg="showReg" />
+        <vReviewsSlider v-bind:isShowReg="isShowReg" />
 
-        <div class="reviews__scores" v-if="showReg">
+        <div class="reviews__scores" v-if="isShowReg">
           <img src="../assets/img/250.png" />
         </div>
 
@@ -22,7 +22,7 @@
 import vReviewsSlider from "./v-reviews-slider.vue";
 export default {
   name: "v-reviews",
-  props: ["showReg"],
+  props: ["isShowReg"],
   components: {
     vReviewsSlider,
   },

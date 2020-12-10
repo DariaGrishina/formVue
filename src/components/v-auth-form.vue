@@ -37,11 +37,11 @@
           <span class="fail__comment">{{ errorsPass[0] }}</span>
         </p>
       </div>
-      <div class="auth__input" v-if="showReg" >
+      <div class="auth__input" v-if="isShowReg" >
           <input class="auth__form-user" placeholder="Введите Ваше имя" v-model="name">
       </div>
-      <button @click="getDataAuth" type="submit" class="auth__form-btn" v-if="showAuth" >Войти</button>
-      <button @click="getDataReg" type="submit" class="auth__form-btn" v-if="showReg" >Вступить в клуб</button>
+      <button @click="getDataAuth" type="submit" class="auth__form-btn" v-if="isShowAuth" >Войти</button>
+      <button @click="getDataReg" type="submit" class="auth__form-btn" v-if="isShowReg" >Вступить в клуб</button>
     </form>
   </div>
 </template>
@@ -49,7 +49,7 @@
 <script>
 export default {
   name: "v-auth-form",
-  props: ["showReg", "showAuth"],
+  props: ["isShowReg", "isShowAuth"],
   data() {
     return {
       errorsEmail: [],

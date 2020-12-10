@@ -35,24 +35,24 @@
     </svg>
     <button @click="closeAuth">Вход</button>
     <button @click="closeReg">Регистрация</button>
-    <div @changeFormAuth="closeAuth" class="form" v-if="showAuth">
+    <div @changeFormAuth="closeAuth" class="form" v-if="isShowAuth">
       <div class="container">
         <button @click="close" class="auth__close" >
           <img class="auth__close-icon" src="../assets/img/close.svg" alt="" />
         </button>
         <vReviews />
-        <vAuth v-on:changeForm="closeReg" v-bind:showAuth="showAuth" />
+        <vAuth v-on:changeForm="closeReg" v-bind:isShowAuth="isShowAuth" />
       </div>
     </div>
-    <div class="formReg" v-if="showReg">
+    <div class="formReg" v-if="isShowReg">
         <div class="container">
             
           <button @click="close" class="auth__close" >
             <img class="auth__close-icon" src="../assets/img/close.svg" alt="" />
           </button>
 
-          <vReviews v-bind:showReg="showReg"/>
-          <vAuth v-on:changeForm="closeAuth" v-bind:showReg="showReg" />
+          <vReviews v-bind:isShowReg="isShowReg"/>
+          <vAuth v-on:changeForm="closeAuth" v-bind:isShowReg="isShowReg" />
         </div>
     </div>
   </div>
@@ -70,22 +70,22 @@ export default {
   },
   data() {
     return {
-      showAuth: false,
-      showReg: false,
+      isShowAuth: false,
+      isShowReg: false,
     };
   },
   methods: {
     close: function (e) {
-      this.showAuth = false;
-      this.showReg = false;
+      this.isShowAuth = false;
+      this.isShowReg = false;
     },
     closeAuth: function (e) {
-      this.showAuth = true;
-      this.showReg = false;
+      this.isShowAuth = true;
+      this.isShowReg = false;
     },
     closeReg: function () {
-      this.showAuth = false;
-      this.showReg = true;
+      this.isShowAuth = false;
+      this.isShowReg = true;
     }
   },
 };

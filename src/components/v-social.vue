@@ -1,5 +1,5 @@
 <template>
-  <div v-bind:class="showReg ? 'socialReg' : 'social'">
+  <div v-bind:class="isShowReg ? 'socialReg' : 'social'">
     <div class="auth__quickEnter1">Быстрый вход</div>
     <div class="auth__icons">
       <a v-for="(item,key) in social"
@@ -19,7 +19,7 @@
 <script>
 export default {
   name: 'v-social',
-  props: ['showReg'],
+  props: ['isShowReg'],
   data() {
     return {
       social: [

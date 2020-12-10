@@ -39,39 +39,27 @@
         </div>
       </div>
 
-      <vAuthForm v-bind:showReg="showReg" v-bind:showAuth="showAuth"/>
+      <vAuthForm v-bind:isShowReg="isShowReg" v-bind:isShowAuth="isShowAuth"/>
 
-      <div class="auth__policy" v-if="showReg">
+      <div class="auth__policy" v-if="isShowReg">
             Нажимая на кнопку, я соглашаюсь с
            <a href="#" class="auth__policy-doc">условиями</a>
       </div>
-      <div v-bind:class="showReg ? 'auth__enterReg' : 'auth__enter'" v-if="showReg">
+      <div v-bind:class="isShowReg ? 'auth__enterReg' : 'auth__enter'" v-if="isShowReg">
             Зарегистрированы?
             <a @click="showFunc" href="#" class="auth__enter-register">Вход здесь</a>
       </div>
 
-      <a href="#" class="auth__forget" v-if="showAuth">Забыли пароль?</a>
-      <div class="auth__enter" v-if="showAuth">
+      <a href="#" class="auth__forget" v-if="isShowAuth">Забыли пароль?</a>
+      <div class="auth__enter" v-if="isShowAuth">
         Ещё не с нами?
         <a @click="showFunc" href="#" class="auth__enter-register">Вступить в клуб</a>
       </div>
-      <div v-bind:class="showReg ? 'auth__arrowReg' : 'auth__arrow'" >
+      <div v-bind:class="isShowReg ? 'auth__arrowReg' : 'auth__arrow'" >
         <img src="../assets/img/arrow.png" />
       </div>
-      <vSocial v-bind:showReg="showReg"/>
-      <!--<div class="auth__icons">
-        <img class="auth__icons-icon" src="../assets/img/vk.svg" alt="" />
-        <img class="auth__icons-icon" src="../assets/img/ok.svg" alt="" />
-        <img class="auth__icons-icon" src="../assets/img/face.svg" alt="" />
-        <img class="auth__icons-icon" src="../assets/img/google.svg" alt="" />
-      </div>
-      <div v-bind:class="showReg ? 'auth__quickEnterReg' : 'auth__quickEnter'" class="auth__quickEnter">Быстрый вход</div>
-      <div v-bind:class="showReg ? 'auth__iconsDeskReg' : 'auth__iconsDesk'">
-        <img v-bind:class="showReg ? 'auth__iconsDeskReg-icon' : 'auth__iconsDesk-icon'" src="../assets/img/vk.svg" alt="" />
-        <img v-bind:class="showReg ? 'auth__iconsDeskReg-icon' : 'auth__iconsDesk-icon'" src="../assets/img/ok.svg" alt="" />
-        <img v-bind:class="showReg ? 'auth__iconsDeskReg-icon' : 'auth__iconsDesk-icon'" src="../assets/img/face.svg" alt="" />
-        <img v-bind:class="showReg ? 'auth__iconsDeskReg-icon' : 'auth__iconsDesk-icon'" src="../assets/img/google.svg" alt="" />
-      </div>-->
+      <vSocial v-bind:isShowReg="isShowReg"/>
+      
       <div class="auth__check check hideCheck">
         <div class="check__block">
           <div class="check__block-mark">
@@ -125,7 +113,7 @@ import vAuthForm from "./v-auth-form.vue";
 import vSocial from "./v-social.vue";
 export default {
   name: "v-auth",
-  props: ["showReg", "showAuth"],
+  props: ["isShowReg", "isShowAuth"],
   components: {
     vAuthForm,
     vSocial
