@@ -1,5 +1,5 @@
 <template>
-  <div class="v-reviews">
+  <div class="v-reviews" v-on:click="greet">
     <div class="form__container">
       <div v-bind:class="showReg ? 'form__reviewsReg' : 'form__reviews'" >
         <div v-bind:class="showReg ? 'reviews__commaReg' : 'reviews__comma'">
@@ -29,8 +29,8 @@ export default {
 
   methods: {
     greet: function(e) {
-      alert(e)
-    }
+      this.$emit('greet')
+    },
   }
 };
 </script>

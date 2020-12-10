@@ -35,7 +35,7 @@
     </svg>
     <button @click="closeAuth">Вход</button>
     <button @click="closeReg">Регистрация</button>
-    <div class="form" v-if="showAuth">
+    <div @changeFormAuth="closeAuth" class="form" v-if="showAuth">
       <div class="container">
         <button @click="close" class="auth__close" >
           <img class="auth__close-icon" src="../assets/img/close.svg" alt="" />
@@ -51,8 +51,8 @@
             <img class="auth__close-icon" src="../assets/img/close.svg" alt="" />
           </button>
 
-          <vReviews v-bind:showReg="showReg"/>
-          <vAuth v-bind:showReg="showReg" />
+          <vReviews v-on:greet="greet" v-bind:showReg="showReg"/>
+          <vAuth v-on:changeFormReg="closeReg" v-bind:showReg="showReg" />
         </div>
     </div>
   </div>
@@ -66,7 +66,7 @@ export default {
   name: "v-main-wrapper",
   components: {
     vReviews,
-    vAuth
+    vAuth,
   },
   data() {
     return {
@@ -83,15 +83,19 @@ export default {
       this.showAuth = true;
       this.showReg = false;
     },
-    closeReg: function (e) {
+    closeReg: function () {
       this.showAuth = false;
       this.showReg = true;
     },
+
+    greet: function() {
+      alert('ergr');
+    }
   },
 };
 </script>
 
-<style>
+<style lang="scss">
 body {
   background-color: black;
 }
@@ -103,6 +107,10 @@ body {
   margin: auto;
   max-width: 785px;
   width: 100%;
+
+  @media (max-width: 755px) {
+    width: 340px;
+  }
 }
 
 .form__container {

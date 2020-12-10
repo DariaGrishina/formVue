@@ -40,7 +40,7 @@
       <div class="auth__input" v-if="showReg" >
           <input class="auth__form-user" placeholder="Введите Ваше имя" v-model="name">
       </div>
-      <button v-bind:disabled="isDisabled" @click="getDataAuth" type="submit" class="auth__form-btn" v-if="showAuth" >Войти</button>
+      <button @click="getDataAuth" type="submit" class="auth__form-btn" v-if="showAuth" >Войти</button>
       <button @click="getDataReg" type="submit" class="auth__form-btn" v-if="showReg" >Вступить в клуб</button>
     </form>
   </div>
@@ -65,13 +65,6 @@ export default {
       let user = {
         userEmail: this.email,
         userPass: this.password
-      }
-      if (!this.email || !this.password) {
-        console.log('ddd');
-        this.isDisabled = true; 
-      } else {
-        console.log('hhh');
-        this.isDisabled = false;
       }
       console.log(user)
     },
@@ -174,10 +167,12 @@ export default {
     margin: 3px 0;
 
     &-user {
-      padding: 13px 121px 13px 15px;
+      padding: 13px 15px;
       border-radius: 3px;
       border: 1px solid rgb(230, 227, 227);
       outline: none;
+      box-sizing: border-box;
+      width: 100%;
 
       &::placeholder {
         font-size: 13px;
@@ -216,17 +211,17 @@ export default {
     .auth {
       &__form {
         &-btn {
-          margin: 0 32px 28px;
+          margin: 0 25px 28px;
         }
 
         &-user {
-          padding: 13px 0 13px 10px;
-          width: 96%;
+          padding: 13px 15px;
+          width: 100%;
         }
       }
 
       &__input {
-        padding: 0 32px;
+        padding: 0 25px;
         margin-bottom: 7px;
       }
     }

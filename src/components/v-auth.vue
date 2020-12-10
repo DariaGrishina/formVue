@@ -47,18 +47,19 @@
       </div>
       <div v-bind:class="showReg ? 'auth__enterReg' : 'auth__enter'" v-if="showReg">
             Зарегистрированы?
-            <a @click="showAuthReg" href="#" class="auth__enter-register">Вход здесь</a>
+            <a @click="showFuncAuth" href="#" class="auth__enter-register">Вход здесь</a>
       </div>
 
       <a href="#" class="auth__forget" v-if="showAuth">Забыли пароль?</a>
       <div class="auth__enter" v-if="showAuth">
         Ещё не с нами?
-        <a @click="showFunc" href="#" class="auth__enter-register">Вступить в клуб</a>
+        <a @click="showFuncReg" href="#" class="auth__enter-register">Вступить в клуб</a>
       </div>
       <div v-bind:class="showReg ? 'auth__arrowReg' : 'auth__arrow'" >
         <img src="../assets/img/arrow.png" />
       </div>
-      <div class="auth__icons">
+      <vSocial v-bind:showReg="showReg"/>
+      <!--<div class="auth__icons">
         <img class="auth__icons-icon" src="../assets/img/vk.svg" alt="" />
         <img class="auth__icons-icon" src="../assets/img/ok.svg" alt="" />
         <img class="auth__icons-icon" src="../assets/img/face.svg" alt="" />
@@ -70,7 +71,7 @@
         <img v-bind:class="showReg ? 'auth__iconsDeskReg-icon' : 'auth__iconsDesk-icon'" src="../assets/img/ok.svg" alt="" />
         <img v-bind:class="showReg ? 'auth__iconsDeskReg-icon' : 'auth__iconsDesk-icon'" src="../assets/img/face.svg" alt="" />
         <img v-bind:class="showReg ? 'auth__iconsDeskReg-icon' : 'auth__iconsDesk-icon'" src="../assets/img/google.svg" alt="" />
-      </div>
+      </div>-->
       <div class="auth__check check hideCheck">
         <div class="check__block">
           <div class="check__block-mark">
@@ -121,11 +122,13 @@
 
 <script>
 import vAuthForm from "./v-auth-form.vue";
+import vSocial from "./v-social.vue";
 export default {
   name: "v-auth",
   props: ["showReg", "showAuth"],
   components: {
     vAuthForm,
+    vSocial
   },
   data() {
     return {
@@ -136,13 +139,15 @@ export default {
     };
   },
   methods: {
-    showFunc: function(e) {
-      this.showReg = true;
-      this.showAuth = false;
+    showFuncReg: function(e) {
+      this.$emit('changeFormReg');
+      //this.showReg = true;
+      //this.showAuth = false;
     },
-    showAuthReg: function(e) {
-      this.showReg = false;
-      this.showAuth = true;
+    showFuncAuth: function(e) {
+      this.$emit('changeFormAuth');
+      //this.showReg = false;
+      //this.showAuth = true;
     }
   },
 };
@@ -150,11 +155,14 @@ export default {
 
 <style lang="scss">
 .v-auth {
+    position: relative;
     background-color: white;
+    @media (max-width: 755px) {
+      width: 100%;
+    }
 }
 
 .auth {
-  position: relative;
   width: 375px;
   text-align: center;
   background-color: white;
@@ -255,7 +263,9 @@ export default {
   }
 
   &__enterReg {
-    margin-top: 40px;
+    position: absolute;
+    bottom: 37px;
+    left: 57px;
     font-style: italic;
 
     &-register {
@@ -264,7 +274,9 @@ export default {
   }
 
   &__enter {
-    margin-top: 105px;
+    position: absolute;
+    bottom: 37px;
+    left: 57px;
     font-style: italic;
 
     &-register {
@@ -274,14 +286,14 @@ export default {
 
   &__arrowReg {
     position: absolute;
-    bottom: -7%;
-    left: -12%;
+    bottom: 20px;
+    left: -44px;
   }
 
   &__arrow {
     position: absolute;
-    bottom: -3%;
-    left: -12%;
+    bottom: 20px;
+    left: -44px;
   }
 
   &__policy {
@@ -440,7 +452,6 @@ export default {
     &__block {
       &-text {
         margin-left: 45px;
-        font-size: 12.5px;
       }
 
       &-mark {
@@ -467,10 +478,6 @@ export default {
   .auth {
     max-width: 340px;
     width: 100%;
-
-    &__text {
-      font-size: 12px;
-    }
 
     &__close {
       right: 20px;
@@ -518,6 +525,10 @@ export default {
     }
 
     &__icons {
+      display: flex;
+      justify-content: space-between;
+      width: 220px;
+
       &-icon {
         position: relative;
         display: inline;
